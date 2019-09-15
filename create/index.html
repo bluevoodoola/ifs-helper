@@ -4,20 +4,23 @@
 <head>
     <title>Ingress First Saturday Stats QR Generator</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css" />
 
     <script type="text/javascript" src="js/ingress/definitions.js"></script>
     <script type="text/javascript" src="js/ingress/stats.js"></script>
+    <script type="text/javascript" src="js/qrious.min.js"></script>
 
     <script type="text/javascript">
         function create(text) {
-            if ( text != '' ) {
+            if (text != '') {
                 var stats = GetAgentStats(text);
                 var data = JSON.stringify(FilterStatsForIFS(stats));
 
-                document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=" + encodeURIComponent(data) + "&chld=H'/>";
+                var qrcode = new QRious({ element: document.getElementById("qrcode"), value: data, size: 500, foreground: FactionTranslation.find(e => e.AgentStatsName === stats.faction).color });
 
                 document.getElementById("AgentName").innerText = stats.username;
+                document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
                 document.getElementById("Faction").innerText = FactionTranslation.find(e => e.AgentStatsName === stats.faction).NianticName;
                 document.getElementById("Faction").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
                 document.getElementById("Level").innerText = stats.level;
@@ -26,82 +29,80 @@
                 document.getElementById("Trekker").innerText = stats.trekker.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 document.getElementById("Recursions").innerText = stats.recursions;
 
-                document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = "stats-present" ; });
+                document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = true; });
             }
         }
 
         function reset() {
             document.getElementById("rawdata").value = '';
-            document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = "stats-waiting" ; });
+            document.querySelectorAll('.watching-stats').forEach(el => { delete el.dataset.stats; });
         }
     </script>
 </head>
 
 <body onload="reset()">
-    <div id="main">
-        <div id="mainbody">
-            <table border="0" align="center">
-                <tr>
-                    <td align="center">
-                        <textarea cols="40" rows="10" id="rawdata" class="watching-stats"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <button id="create" onclick="create(document.getElementById('rawdata').value)" class="watching-stats">Create</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <div id="qrimage" class="watching-stats">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <div id="stats" class="watching-stats">
-                            <table align="center">
-                                <tr>
-                                    <td>Agent Name</td>
-                                    <td><span id="AgentName"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Faction</td>
-                                    <td><span id="Faction"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Level</td>
-                                    <td><span id="Level"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Recursions</td>
-                                    <td><span id="Recursions"></span></td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">AP</td>
-                                    <td style="text-align : right;"><span id="CurrentAP"></span></td>
-                                    <td>Current</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align : right;"><span id="LifetimeAP"></span></td>
-                                    <td>Lifetime</td>
-                                </tr>
-                                <tr>
-                                    <td>Trekker</td>
-                                    <td style="text-align : right;"><span id="Trekker"></span></td>
-                                    <td>km</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <button id="reset" onclick="reset()" class="watching-stats">Reset</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <div id="main" style="width : 100%; text-align: center">
+        <table align="center" style="border: 0px; text-align: center">
+            <tr>
+                <td style="text-align: center">
+                    <textarea cols="40" rows="10" id="rawdata" class="watching-stats stats-hide"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="text-align: center">
+                    <button id="create" onclick="create(document.getElementById('rawdata').value)"
+                        class="watching-stats stats-hide">Create</button>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center">
+                    <canvas id="qrcode" class="watching-stats stats-show"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center">
+                    <div id="stats" class="watching-stats stats-show">
+                        <table align="center" style="text-align: center">
+                            <tr>
+                                <td class="agentname caption">Agent Name</td>
+                                <td class="agentname data"><span id="AgentName"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="faction caption">Faction</td>
+                                <td class="faction data"><span id="Faction"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="level caption">Level</td>
+                                <td class="level data"><span id="Level"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="recursions caption">Recursions</td>
+                                <td class="recursions data"><span id="Recursions"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="trekker caption">Trekker</td>
+                                <td class="trekker data"><span id="Trekker"></span></td>
+                                <td class="trekker label">km</td>
+                            </tr>
+                            <tr>
+                                <td class="ap caption" rowspan="2">AP</td>
+                                <td class="ap data"><span id="CurrentAP"></span></td>
+                                <td class="ap label">Current</td>
+                            </tr>
+                            <tr>
+                                <td class="ap data"><span id="LifetimeAP"></span></td>
+                                <td class="ap label">Lifetime</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center">
+                    <button id="reset" onclick="reset()" class="watching-stats stats-show">Reset</button>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
 

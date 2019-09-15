@@ -3,6 +3,7 @@ body {
     text-align: center;
     background: black;
     color: white;
+    font-family: 'Coda', sans-serif;
 }
 
 img {
@@ -14,21 +15,33 @@ button {
     background: black;
     border: 2px solid white;
     border-radius: 10px;
+    font-family: 'Coda', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#stats table tr td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.watching-stats.stats-show:not([data-stats]), .watching-stats.stats-hide[data-stats] {
+    display:none;
+}
+
+.watching-stats.stats-show[data-stats], .watching-stats.stats-hide:not([data-stats]) {
+    display:block;
+}
+
+.caption {
+    text-align: right;
     font-weight: bold;
 }
 
-#stats[data-stats='stats-waiting'], #qrimage[data-stats='stats-waiting'], #reset[data-stats='stats-waiting'] {
-    display:none;
+.level.data, .recursions.data, .ap.data, .trekker.data {
+    text-align: right;
 }
 
-#stats[data-stats='stats-present'], #qrimage[data-stats='stats-present'], #reset[data-stats='stats-present'] {
-    display:block;
-}
-
-#rawdata[data-stats='stats-waiting'], #create[data-stats='stats-waiting'] {
-    display:block;
-}
-
-#rawdata[data-stats='stats-present'], #create[data-stats='stats-present'] {
-    display:none;
+.agentname.data, .faction.data, .label {
+    text-align: left;
 }
