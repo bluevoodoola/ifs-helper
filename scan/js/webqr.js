@@ -43,7 +43,7 @@ function read(a) {
 
     stats = JSON.parse(a);
 
-    document.getElementById("AgentName").innerText = stats.username;
+    document.getElementById("AgentName").innerText = stats.ag;
     document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.IFSName === stats.f).color;
     document.getElementById("Faction").innerText = FactionTranslation.find(e => e.IFSName === stats.f).NianticName;
     document.getElementById("Faction").style.color = FactionTranslation.find(e => e.IFSName === stats.f).color;
