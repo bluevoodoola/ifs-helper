@@ -17,42 +17,18 @@ button {
     font-weight: bold;
 }
 
-#stats.stats-waiting {
+#stats[data-stats='stats-waiting'], #qrimage[data-stats='stats-waiting'], #reset[data-stats='stats-waiting'] {
     display:none;
 }
 
-#stats.stats-present {
+#stats[data-stats='stats-present'], #qrimage[data-stats='stats-present'], #reset[data-stats='stats-present'] {
     display:block;
 }
 
-#qrimage.stats-waiting {
-    display:none;
-}
-
-#qrimage.stats-present {
+#rawdata[data-stats='stats-waiting'], #create[data-stats='stats-waiting'] {
     display:block;
 }
 
-#reset.stats-waiting {
-    display:none;
-}
-
-#reset.stats-present {
-    display:block;
-}
-
-#rawdata.stats-waiting {
-    display:block;
-}
-
-#rawdata.stats-present {
-    display:none;
-}
-
-#create.stats-waiting {
-    display:block;
-}
-
-#create.stats-present {
+#rawdata[data-stats='stats-present'], #create[data-stats='stats-present'] {
     display:none;
 }

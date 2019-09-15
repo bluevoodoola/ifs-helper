@@ -11,56 +11,55 @@
 
     <script type="text/javascript">
         function create(text) {
-            var stats = GetAgentStats(text);
-            var data = JSON.stringify(FilterStatsForIFS(stats));
+            if ( text != '' ) {
+                var stats = GetAgentStats(text);
+                var data = JSON.stringify(FilterStatsForIFS(stats));
 
-            document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=" + encodeURIComponent(data) + "&chld=H'/>";
+                document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=" + encodeURIComponent(data) + "&chld=H'/>";
 
-            document.getElementById("AgentName").innerText = stats.username;
-            document.getElementById("Faction").innerText = FactionTranslation.find(e => e.AgentStatsName === stats.faction).NianticName;
-            document.getElementById("Faction").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
-            document.getElementById("Level").innerText = stats.level;
-            document.getElementById("LifetimeAP").innerText = stats.lifetimeap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById("CurrentAP").innerText = stats.ap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById("Trekker").innerText = stats.trekker.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            document.getElementById("Recursions").innerText = stats.recursions;
+                document.getElementById("AgentName").innerText = stats.username;
+                document.getElementById("Faction").innerText = FactionTranslation.find(e => e.AgentStatsName === stats.faction).NianticName;
+                document.getElementById("Faction").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
+                document.getElementById("Level").innerText = stats.level;
+                document.getElementById("LifetimeAP").innerText = stats.lifetimeap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById("CurrentAP").innerText = stats.ap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById("Trekker").innerText = stats.trekker.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                document.getElementById("Recursions").innerText = stats.recursions;
 
-            document.getElementById("rawdata").className = "stats-present";
-            document.getElementById("stats").className = "stats-present";
-            document.getElementById("qrimage").className = "stats-present";
-            document.getElementById("create").className = "stats-present";
-            document.getElementById("reset").className = "stats-present";
+                document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = "stats-present" ; });
+            }
         }
 
         function reset() {
             document.getElementById("rawdata").value = '';
-            document.getElementById("rawdata").className = "stats-waiting";
-            document.getElementById("stats").className = "stats-waiting";
-            document.getElementById("qrimage").className = "stats-waiting";
-            document.getElementById("create").className = "stats-waiting";
-            document.getElementById("reset").className = "stats-waiting";
+            document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = "stats-waiting" ; });
         }
     </script>
 </head>
 
-<body>
+<body onload="reset()">
     <div id="main">
         <div id="mainbody">
             <table border="0" align="center">
                 <tr>
                     <td align="center">
-                        <button id="create" onclick="create(document.getElementById('rawdata').value)" class="stats-waiting">Create</button>
+                        <textarea cols="40" rows="10" id="rawdata" class="watching-stats"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td align="center">
-                        <div id="qrimage" class="stats-waiting">
+                        <button id="create" onclick="create(document.getElementById('rawdata').value)" class="watching-stats">Create</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <div id="qrimage" class="watching-stats">
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td align="center">
-                        <div id="stats" class="stats-waiting">
+                        <div id="stats" class="watching-stats">
                             <table align="center">
                                 <tr>
                                     <td>Agent Name</td>
@@ -98,12 +97,7 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <textarea cols="40" rows="10" id="rawdata" class="stats-waiting"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <button id="reset" onclick="reset()" class="stats-waiting">Reset</button>
+                        <button id="reset" onclick="reset()" class="watching-stats">Reset</button>
                     </td>
                 </tr>
             </table>
