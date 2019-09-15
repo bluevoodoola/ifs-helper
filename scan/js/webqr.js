@@ -41,17 +41,17 @@ function captureToCanvas() {
 function read(a) {
     document.getElementById("result").innerText = a;
 
-    stats = JSON.parse(a);
+    stats = StatsFromIFS(JSON.parse(a));
 
-    document.getElementById("AgentName").innerText = stats.ag;
-    document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.IFSName === stats.f).color;
-    document.getElementById("Faction").innerText = FactionTranslation.find(e => e.IFSName === stats.f).NianticName;
-    document.getElementById("Faction").style.color = FactionTranslation.find(e => e.IFSName === stats.f).color;
-    document.getElementById("Level").innerText = stats.l;
-    document.getElementById("LifetimeAP").innerText = stats.lap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById("AgentName").innerText = stats.username;
+    document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
+    document.getElementById("Faction").innerText = FactionTranslation.find(e => e.AgentStatsName === stats.faction).NianticName;
+    document.getElementById("Faction").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
+    document.getElementById("Level").innerText = stats.level;
+    document.getElementById("LifetimeAP").innerText = stats.lifetimeap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("CurrentAP").innerText = stats.ap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById("Trekker").innerText = stats.t.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById("Recursions").innerText = stats.r;
+    document.getElementById("Trekker").innerText = stats.trekker.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById("Recursions").innerText = stats.recursions;
 
     document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = true; });
 }
