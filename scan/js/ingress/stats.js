@@ -61,5 +61,5 @@ function StatsFromIFS(ifs) {
         }
     }
 
-    return member;
+    return stats;
 }

@@ -39,7 +39,8 @@ function captureToCanvas() {
 }
 
 function read(a) {
-    stats = StatsFromIFS(JSON.parse(a));
+    var ifs = JSON.parse(a);
+    var stats = StatsFromIFS(ifs);
 
     document.getElementById("result").innerText = a + ' ' + JSON.stringify(stats);
 

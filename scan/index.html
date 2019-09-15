@@ -10,6 +10,12 @@
     <script type="text/javascript" src="js/ingress/stats.js"></script>
     <script type="text/javascript" src="js/llqrcode.js"></script>
     <script type="text/javascript" src="js/webqr.js"></script>
+
+    <script type="text/javascript">
+        function test() {
+            read('{"ag":"caderoux","f":"res","lap":"266013262","ap":"7575659","t":"8281","r":"1","l":11}');
+        }
+    </script>
 </head>
 
 <body>
@@ -26,40 +32,46 @@
                 <td align="center">
                     <div id="result"></div>
                     <div id="stats" class="watching-stats stats-show">
-                            <table align="center" style="text-align: center">
-                                <tr>
-                                    <td class="agentname caption">Agent Name</td>
-                                    <td class="agentname data"><span id="AgentName"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="faction caption">Faction</td>
-                                    <td class="faction data"><span id="Faction"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="level caption">Level</td>
-                                    <td class="level data"><span id="Level"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="recursions caption">Recursions</td>
-                                    <td class="recursions data"><span id="Recursions"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="trekker caption">Trekker</td>
-                                    <td class="trekker data"><span id="Trekker"></span></td>
-                                    <td class="trekker label">km</td>
-                                </tr>
-                                <tr>
-                                    <td class="ap caption" rowspan="2">AP</td>
-                                    <td class="ap data"><span id="CurrentAP"></span></td>
-                                    <td class="ap label">Current</td>
-                                </tr>
-                                <tr>
-                                    <td class="ap data"><span id="LifetimeAP"></span></td>
-                                    <td class="ap label">Lifetime</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
+                        <table align="center" style="text-align: center">
+                            <tr>
+                                <td class="agentname caption">Agent Name</td>
+                                <td class="agentname data"><span id="AgentName"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="faction caption">Faction</td>
+                                <td class="faction data"><span id="Faction"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="level caption">Level</td>
+                                <td class="level data"><span id="Level"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="recursions caption">Recursions</td>
+                                <td class="recursions data"><span id="Recursions"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="trekker caption">Trekker</td>
+                                <td class="trekker data"><span id="Trekker"></span></td>
+                                <td class="trekker label">km</td>
+                            </tr>
+                            <tr>
+                                <td class="ap caption" rowspan="2">AP</td>
+                                <td class="ap data"><span id="CurrentAP"></span></td>
+                                <td class="ap label">Current</td>
+                            </tr>
+                            <tr>
+                                <td class="ap data"><span id="LifetimeAP"></span></td>
+                                <td class="ap label">Lifetime</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="text-align: center">
+                    <button id="test" onclick="test()"
+                        class="watching-stats stats-hide">Test</button>
+                </td>
             </tr>
         </table>
     </div>&nbsp;
