@@ -50,3 +50,16 @@ function FilterStatsForIFS(stats) {
 
     return ifs;
 }
+
+function StatsFromIFS(ifs) {
+    stats = {};
+
+    for (var member in ifs) {
+        stat = StatsDefs.find( e => e.IFSName === member && e.AgentStatsName != null ) ;
+        if ( stat != null ) {
+            stats[stat.AgentStatsName] = ifs[member];
+        }
+    }
+
+    return member;
+}
