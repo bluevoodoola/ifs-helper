@@ -18,19 +18,19 @@ const IngressLevels = [
 
 const StatsDefs = [
     { NianticName: 'Time Span', AgentStatsName: '', IFSInclude: false }
-    , { NianticName: 'Agent Name', AgentStatsName: 'username', IFSInclude: true }
-    , { NianticName: '', AgentStatsName: 'level', IFSInclude: true }
-    , { NianticName: 'Agent Faction', AgentStatsName: 'faction', IFSInclude: true }
+    , { NianticName: 'Agent Name', AgentStatsName: 'username', IFSName: 'ag', IFSInclude: true }
+    , { NianticName: '', AgentStatsName: 'level', IFSName: 'l', IFSInclude: true }
+    , { NianticName: 'Agent Faction', AgentStatsName: 'faction', IFSName: 'f', IFSInclude: true }
     , { NianticName: 'Date (yyyy-mm-dd)', AgentStatsName: '', IFSInclude: false }
     , { NianticName: 'Time (hh:mm:ss)', AgentStatsName: '', IFSInclude: false }
-    , { NianticName: 'Lifetime AP', AgentStatsName: 'lifetimeap', IFSInclude: true }
-    , { NianticName: 'Current AP', AgentStatsName: 'ap', IFSInclude: true }
+    , { NianticName: 'Lifetime AP', AgentStatsName: 'lifetimeap', IFSName: 'lap', IFSInclude: true }
+    , { NianticName: 'Current AP', AgentStatsName: 'ap', IFSName: 'ap', IFSInclude: true }
     , { NianticName: 'Unique Portals Visited', AgentStatsName: 'explorer', Medals: {Bronze: 100, Silver: 1000, Gold: 2000, Platinum: 10000, Gold: 30000}, IFSInclude: false }
     , { NianticName: 'Portals Discovered', AgentStatsName: '', IFSInclude: false }
     , { NianticName: 'Seer Points', AgentStatsName: 'seer', Medals: {Bronze: 10, Silver: 50, Gold: 200, Platinum: 500, Onyx: 5000}, IFSInclude: false }
     , { NianticName: 'XM Collected', AgentStatsName: '', IFSInclude: false }
     , { NianticName: 'OPR Agreements', AgentStatsName: '', IFSInclude: false }
-    , { NianticName: 'Distance Walked', AgentStatsName: 'trekker', Medals: {Bronze: 10, Silver: 100, Gold: 300, Platinum: 1000, Onyx: 2500}, IFSInclude: true }
+    , { NianticName: 'Distance Walked', AgentStatsName: 'trekker', IFSName: 't', Medals: {Bronze: 10, Silver: 100, Gold: 300, Platinum: 1000, Onyx: 2500}, IFSInclude: true }
     , { NianticName: 'Resonators Deployed', AgentStatsName: 'builder', Medals: {Bronze: 2000, Silver: 10000, Gold: 30000, Platinum: 100000, Onyx: 200000}, IFSInclude: false }
     , { NianticName: 'Links Created', AgentStatsName: 'connector', Medals: {Bronze: 50, Silver: 1000, Gold: 5000, Platinum: 25000, Onyx: 100000}, IFSInclude: false }
     , { NianticName: 'Control Fields Created', AgentStatsName: 'mind-controller', Medals: {Bronze: 100, Silver: 500, Gold: 2000, Platinum: 10000, Onyx: 40000}, IFSInclude: false }
@@ -58,10 +58,10 @@ const StatsDefs = [
     , { NianticName: 'NL-1331 Meetup(s) Attended', AgentStatsName: '', IFSInclude: false }
     , { NianticName: 'First Saturday Events', AgentStatsName: '', IFSInclude: false }
     , { NianticName: 'Intel Ops Missions', AgentStatsName: '', IFSInclude: false }
-    , { NianticName: 'Recursions', AgentStatsName: 'recursions', IFSInclude: true }
+    , { NianticName: 'Recursions', AgentStatsName: 'recursions', IFSName: 'r', IFSInclude: true }
 ];
 
 const FactionTranslation = [
-    { NianticName: 'Resistance', AgentStatsName: 'res', color: 'blue' }
-    , { NianticName: 'Enlightened', AgentStatsName: 'enl', color: 'green' }
+    { NianticName: 'Resistance', AgentStatsName: 'res', IFSName: 'r', color: 'blue' }
+    , { NianticName: 'Enlightened', AgentStatsName: 'enl', IFSName: 'e', color: 'green' }
 ];

@@ -39,11 +39,12 @@ function GetAgentStats(tsv) {
 }
 
 function FilterStatsForIFS(stats) {
-    ifs = Object.assign({}, stats);
+    ifs = {};
 
-    for (var member in ifs) {
-        if ( !StatsDefs.some( e => e.AgentStatsName === member && e.IFSInclude === true ) ) {
-            delete ifs[member];
+    for (var member in stats) {
+        stat = StatsDefs.find( e => e.AgentStatsName === member && e.IFSInclude === true && e.IFSName != null ) ;
+        if ( stat != null ) {
+            ifs[stat.IFSName] = stats[member];
         }
     }
 
