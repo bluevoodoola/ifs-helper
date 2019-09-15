@@ -43,7 +43,7 @@ img {
     padding-right: 5px;
 }
 
-.watching-stats.stats-show:not([data-stats]), .watching-stats.stats-hide[data-stats] {
+/* .watching-stats.stats-show:not([data-stats]), .watching-stats.stats-hide[data-stats] {
     display:none;
 }
 
@@ -62,4 +62,4 @@ img {
 
 .agentname.data, .faction.data, .label {
     text-align: left;
-}
+} */
