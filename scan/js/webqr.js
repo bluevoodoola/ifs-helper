@@ -2,20 +2,12 @@
 // http://www.webqr.com
 
 var gCtx = null;
-var gCanvas = null;
-var c=0;
-var stype=0;
-var gUM=false;
-var webkit=false;
-var moz=false;
-var v=null;
+var stype = 0;
+var gUM = false;
+var v = null;
 
-var imghtml='<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas></div>';
-
-var vidhtml = '<video id="v" autoplay></video>';
-
-function initCanvas(w,h)
-{
+function initCanvas(w, h) {
+    var gCanvas = null;
     gCanvas = document.getElementById("qr-canvas");
     gCanvas.style.width = w + "px";
     gCanvas.style.height = h + "px";
@@ -25,154 +17,133 @@ function initCanvas(w,h)
     gCtx.clearRect(0, 0, w, h);
 }
 
-
 function captureToCanvas() {
-    if(stype!=1)
+    if (stype != 1)
         return;
-    if(gUM)
-    {
-        try{
-            gCtx.drawImage(v,0,0);
-            try{
+    if (gUM) {
+        try {
+            gCtx.drawImage(v, 0, 0);
+            try {
                 qrcode.decode();
             }
-            catch(e){       
+            catch (e) {
                 console.log(e);
                 setTimeout(captureToCanvas, 500);
             };
         }
-        catch(e){       
-                console.log(e);
-                setTimeout(captureToCanvas, 500);
+        catch (e) {
+            console.log(e);
+            setTimeout(captureToCanvas, 500);
         };
     }
 }
 
-function htmlEntities(str) {
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function read(a) {
+    document.getElementById("result").innerText = a;
+
+    stats = JSON.parse(a);
+
+    document.getElementById("AgentName").innerText = stats.username;
+    document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.IFSName === stats.f).color;
+    document.getElementById("Faction").innerText = FactionTranslation.find(e => e.IFSName === stats.f).NianticName;
+    document.getElementById("Faction").style.color = FactionTranslation.find(e => e.IFSName === stats.f).color;
+    document.getElementById("Level").innerText = stats.l;
+    document.getElementById("LifetimeAP").innerText = stats.lap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById("CurrentAP").innerText = stats.ap.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById("Trekker").innerText = stats.t.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    document.getElementById("Recursions").innerText = stats.r;
+
+    document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = true; });
 }
 
-function read(a)
-{
-    var html="<br>";
-    if(a.indexOf("http://") === 0 || a.indexOf("https://") === 0)
-        html+="<a target='_blank' href='"+a+"'>"+a+"</a><br>";
-    html+="<b>"+htmlEntities(a)+"</b><br><br>";
-    document.getElementById("result").innerHTML=html;
-}	
-
-function isCanvasSupported(){
-  var elem = document.createElement('canvas');
-  return !!(elem.getContext && elem.getContext('2d'));
+function isCanvasSupported() {
+    var elem = document.createElement('canvas');
+    return !!(elem.getContext && elem.getContext('2d'));
 }
-function success(stream) 
-{
+function success(stream) {
 
     v.srcObject = stream;
     v.play();
 
-    gUM=true;
+    gUM = true;
     setTimeout(captureToCanvas, 500);
 }
-		
-function error(error)
-{
-    gUM=false;
+
+function error(error) {
+    gUM = false;
     return;
 }
 
-function load()
-{
-	if(isCanvasSupported() && window.File && window.FileReader)
-	{
-		initCanvas(800, 600);
-		qrcode.callback = read;
-		document.getElementById("mainbody").style.display="inline";
+function load() {
+    document.querySelectorAll('.watching-stats').forEach(el => { delete el.dataset.stats; });
+
+    if (isCanvasSupported()) {
+        initCanvas(800, 600);
+        qrcode.callback = read;
+        document.getElementById("mainbody").style.display = "inline";
         setwebcam();
-	}
-	else
-	{
-		document.getElementById("mainbody").style.display="inline";
-		document.getElementById("mainbody").innerHTML='<p>Sorry your browser is not supported</p>';
-	}
+    }
+    else {
+        document.getElementById("mainbody").style.display = "inline";
+        document.getElementById("mainbody").innerHTML = '<p>Sorry your browser is not supported</p>';
+    }
 }
 
-function setwebcam()
-{
-	
-	var options = true;
-	if(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
-	{
-		try{
-			navigator.mediaDevices.enumerateDevices()
-			.then(function(devices) {
-			  devices.forEach(function(device) {
-				if (device.kind === 'videoinput') {
-				  if(device.label.toLowerCase().search("back") >-1)
-					options={'deviceId': {'exact':device.deviceId}, 'facingMode':'environment'} ;
-				}
-				console.log(device.kind + ": " + device.label +" id = " + device.deviceId);
-			  });
-			  setwebcam2(options);
-			});
-		}
-		catch(e)
-		{
-			console.log(e);
-		}
-	}
-	else{
-		console.log("no navigator.mediaDevices.enumerateDevices" );
-		setwebcam2(options);
-	}
-	
+function setwebcam() {
+
+    var options = true;
+    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        try {
+            navigator.mediaDevices.enumerateDevices()
+                .then(function (devices) {
+                    devices.forEach(function (device) {
+                        if (device.kind === 'videoinput') {
+                            if (device.label.toLowerCase().search("back") > -1)
+                                options = { 'deviceId': { 'exact': device.deviceId }, 'facingMode': 'environment' };
+                        }
+                        console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+                    });
+                    setwebcam2(options);
+                });
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+    else {
+        console.log("no navigator.mediaDevices.enumerateDevices");
+        setwebcam2(options);
+    }
+
 }
 
-function setwebcam2(options)
-{
-	console.log(options);
-	document.getElementById("result").innerHTML="- scanning -";
-    if(stype==1)
-    {
-        setTimeout(captureToCanvas, 500);    
+function setwebcam2(options) {
+    console.log(options);
+    document.getElementById("result").innerText = "Scanning";
+    if (stype == 1) {
+        setTimeout(captureToCanvas, 500);
         return;
     }
-    var n=navigator;
-    document.getElementById("outdiv").innerHTML = vidhtml;
-    v=document.getElementById("v");
+    var n = navigator;
+    v = document.getElementById("v");
 
-
-    if(n.mediaDevices.getUserMedia)
-    {
-        n.mediaDevices.getUserMedia({video: options, audio: false}).
-            then(function(stream){
+    if (n.mediaDevices.getUserMedia) {
+        n.mediaDevices.getUserMedia({ video: options, audio: false }).
+            then(function (stream) {
                 success(stream);
-            }).catch(function(error){
+            }).catch(function (error) {
                 error(error)
             });
     }
     else
-    if(n.getUserMedia)
-	{
-		webkit=true;
-        n.getUserMedia({video: options, audio: false}, success, error);
-	}
-    else
-    if(n.webkitGetUserMedia)
-    {
-        webkit=true;
-        n.webkitGetUserMedia({video:options, audio: false}, success, error);
-    }
+        if (n.getUserMedia) {
+            n.getUserMedia({ video: options, audio: false }, success, error);
+        }
+        else
+            if (n.webkitGetUserMedia) {
+                n.webkitGetUserMedia({ video: options, audio: false }, success, error);
+            }
 
-    stype=1;
+    stype = 1;
     setTimeout(captureToCanvas, 500);
-}
-
-function setimg()
-{
-	document.getElementById("result").innerHTML="";
-    if(stype==2)
-        return;
-    document.getElementById("outdiv").innerHTML = imghtml;
-    stype=2;
 }

@@ -4,81 +4,60 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web QR</title>
-
-    <style type="text/css">
-        body {
-            width: 100%;
-            text-align: center;
-        }
-
-        img {
-            border: 0;
-        }
-
-        #v {
-            width: 320px;
-            height: 240px;
-        }
-
-        #qr-canvas {
-            display: none;
-        }
-
-        #qrfile {
-            width: 320px;
-            height: 240px;
-        }
-
-        .selector {
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            margin-bottom: -5px;
-        }
-
-        #outdiv {
-            width: 320px;
-            height: 240px;
-            border: solid;
-            border-width: 3px 3px 3px 3px;
-        }
-
-        #result {
-            border: solid;
-            border-width: 1px 1px 1px 1px;
-            padding: 20px;
-            width: 70%;
-        }
-
-        .tsel {
-            padding: 0;
-        }
-    </style>
-
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <script type="text/javascript" src="js/llqrcode.js"></script>
     <script type="text/javascript" src="js/webqr.js"></script>
-
 </head>
 
 <body>
     <div id="mainbody">
-        <table class="tsel" border="0" width="100%">
+        <table border="0" style="padding: 0px">
             <tr>
                 <td valign="top" align="center" width="50%">
-                    <table class="tsel" border="0">
-                        <tr>
-                            <td align="center">
-                                <div id="outdiv">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div id="outdiv">
+                        <video id="v" autoplay></video>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td align="center">
                     <div id="result"></div>
-                </td>
+                    <div id="stats" class="watching-stats stats-show">
+                            <table align="center" style="text-align: center">
+                                <tr>
+                                    <td class="agentname caption">Agent Name</td>
+                                    <td class="agentname data"><span id="AgentName"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="faction caption">Faction</td>
+                                    <td class="faction data"><span id="Faction"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="level caption">Level</td>
+                                    <td class="level data"><span id="Level"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="recursions caption">Recursions</td>
+                                    <td class="recursions data"><span id="Recursions"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="trekker caption">Trekker</td>
+                                    <td class="trekker data"><span id="Trekker"></span></td>
+                                    <td class="trekker label">km</td>
+                                </tr>
+                                <tr>
+                                    <td class="ap caption" rowspan="2">AP</td>
+                                    <td class="ap data"><span id="CurrentAP"></span></td>
+                                    <td class="ap label">Current</td>
+                                </tr>
+                                <tr>
+                                    <td class="ap data"><span id="LifetimeAP"></span></td>
+                                    <td class="ap label">Lifetime</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
             </tr>
         </table>
     </div>&nbsp;
