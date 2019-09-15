@@ -17,7 +17,12 @@
                 var stats = GetAgentStats(text);
                 var data = JSON.stringify(FilterStatsForIFS(stats));
 
-                var qrcode = new QRious({ element: document.getElementById("qrcode"), value: data, size: 250, foreground: FactionTranslation.find(e => e.AgentStatsName === stats.faction).color });
+                var qrcode = new QRious(
+                    { element: document.getElementById("qrcode")
+                        , value: data
+                        , size: 250
+                        // , foreground: FactionTranslation.find(e => e.AgentStatsName === stats.faction).color
+                    });
 
                 document.getElementById("AgentName").innerText = stats.username;
                 document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
