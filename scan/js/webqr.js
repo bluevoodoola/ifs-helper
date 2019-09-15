@@ -10,58 +10,9 @@ var webkit=false;
 var moz=false;
 var v=null;
 
-var imghtml='<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas>'+
-    '<div id="imghelp">drag and drop a QRCode here'+
-	'<br>or select a file'+
-	'<input type="file" onchange="handleFiles(this.files)"/>'+
-	'</div>'+
-'</div>';
+var imghtml='<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas></div>';
 
 var vidhtml = '<video id="v" autoplay></video>';
-
-function dragenter(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-function dragover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  var dt = e.dataTransfer;
-  var files = dt.files;
-  if(files.length>0)
-  {
-	handleFiles(files);
-  }
-  else
-  if(dt.getData('URL'))
-  {
-	qrcode.decode(dt.getData('URL'));
-  }
-}
-
-function handleFiles(f)
-{
-	var o=[];
-	
-	for(var i =0;i<f.length;i++)
-	{
-        var reader = new FileReader();
-        reader.onload = (function(theFile) {
-        return function(e) {
-            gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-
-			qrcode.decode(e.target.result);
-        };
-        })(f[i]);
-        reader.readAsDataURL(f[i]);	
-    }
-}
 
 function initCanvas(w,h)
 {
@@ -142,9 +93,7 @@ function load()
 	else
 	{
 		document.getElementById("mainbody").style.display="inline";
-		document.getElementById("mainbody").innerHTML='<p id="mp1">QR code scanner for HTML5 capable browsers</p><br>'+
-        '<br><p id="mp2">sorry your browser is not supported</p><br><br>'+
-        '<p id="mp1">try <a href="http://www.mozilla.com/firefox"><img src="firefox.png"/></a> or <a href="http://chrome.google.com"><img src="chrome_logo.gif"/></a> or <a href="http://www.opera.com"><img src="Opera-logo.png"/></a></p>';
+		document.getElementById("mainbody").innerHTML='<p>Sorry your browser is not supported</p>';
 	}
 }
 
@@ -215,9 +164,6 @@ function setwebcam2(options)
         n.webkitGetUserMedia({video:options, audio: false}, success, error);
     }
 
-    document.getElementById("qrimg").style.opacity=0.2;
-    document.getElementById("webcamimg").style.opacity=1.0;
-
     stype=1;
     setTimeout(captureToCanvas, 500);
 }
@@ -228,13 +174,5 @@ function setimg()
     if(stype==2)
         return;
     document.getElementById("outdiv").innerHTML = imghtml;
-    //document.getElementById("qrimg").src="qrimg.png";
-    //document.getElementById("webcamimg").src="webcam2.png";
-    document.getElementById("qrimg").style.opacity=1.0;
-    document.getElementById("webcamimg").style.opacity=0.2;
-    var qrfile = document.getElementById("qrfile");
-    qrfile.addEventListener("dragenter", dragenter, false);  
-    qrfile.addEventListener("dragover", dragover, false);  
-    qrfile.addEventListener("drop", drop, false);
     stype=2;
 }

@@ -15,24 +15,6 @@
             border: 0;
         }
 
-        #main {
-            margin: 15px auto;
-            background: white;
-            overflow: auto;
-            width: 100%;
-        }
-
-        #header {
-            background: white;
-            margin-bottom: 15px;
-        }
-
-        #mainbody {
-            background: white;
-            width: 100%;
-            display: none;
-        }
-
         #v {
             width: 320px;
             height: 240px;
@@ -45,20 +27,6 @@
         #qrfile {
             width: 320px;
             height: 240px;
-        }
-
-        #imghelp {
-            position: relative;
-            left: 0px;
-            top: -160px;
-            z-index: 100;
-            font: 18px arial, sans-serif;
-            background: #f0f0f0;
-            margin-left: 35px;
-            margin-right: 35px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border-radius: 20px;
         }
 
         .selector {
@@ -99,13 +67,7 @@
                 <td valign="top" align="center" width="50%">
                     <table class="tsel" border="0">
                         <tr>
-                            <td><img class="selector" id="webcamimg" src="img/vid.png" onclick="setwebcam()"
-                                    align="left" /></td>
-                            <td><img class="selector" id="qrimg" src="img/cam.png" onclick="setimg()" align="right" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center">
+                            <td align="center">
                                 <div id="outdiv">
                                 </div>
                             </td>
@@ -114,7 +76,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3" align="center">
+                <td align="center">
                     <div id="result"></div>
                 </td>
             </tr>
