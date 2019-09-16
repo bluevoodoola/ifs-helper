@@ -15,6 +15,10 @@
         function test() {
             read('{"ag":"caderoux","f":"res","lap":"266013262","ap":"7575659","t":"8281","r":"1","l":11}');
         }
+
+        function reset() {
+            document.querySelectorAll('.watching-stats').forEach(el => { delete el.dataset.stats; });
+        }
     </script>
 </head>
 
@@ -23,14 +27,14 @@
         <table border="0" style="padding: 0px">
             <tr>
                 <td valign="top" align="center" width="50%">
-                    <div id="outdiv">
+                    <div id="outdiv" class="watching-stats stats-hide">
                         <video id="v" autoplay></video>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td align="center">
-                    <div id="result"></div>
+                    <div id="result" class="watching-stats stats-hide"></div>
                     <div id="stats" class="watching-stats stats-show">
                         <table align="center" style="text-align: center">
                             <tr>
@@ -69,8 +73,10 @@
             </tr>
             <tr>
                 <td align="center" style="text-align: center">
-                    <button id="test" onclick="test()"
+                        <button id="test" onclick="test()"
                         class="watching-stats stats-hide">Test</button>
+                        <button id="reset" onclick="reset()"
+                        class="watching-stats stats-show">Reset</button>
                 </td>
             </tr>
         </table>

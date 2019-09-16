@@ -42,7 +42,7 @@ function read(a) {
     var ifs = JSON.parse(a);
     var stats = StatsFromIFS(ifs);
 
-    document.getElementById("result").innerText = a + ' ' + JSON.stringify(stats);
+    // document.getElementById("result").innerText = a + ' ' + JSON.stringify(stats);
 
     document.getElementById("AgentName").innerText = stats.username;
     document.getElementById("AgentName").style.color = FactionTranslation.find(e => e.AgentStatsName === stats.faction).color;
