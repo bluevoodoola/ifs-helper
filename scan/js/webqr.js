@@ -57,6 +57,8 @@ function read(a) {
     document.getElementById("jsondata").innerText = JSON.stringify(stats);
 
     document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = true; });
+
+    currentStats = stats;
 }
 
 function isCanvasSupported() {
