@@ -5,6 +5,7 @@ var gCtx = null;
 var stype = 0;
 var gUM = false;
 var v = null;
+var currentStats;
 
 function initCanvas(w, h) {
     var gCanvas = null;
@@ -38,6 +39,10 @@ function captureToCanvas() {
     }
 }
 
+function getCurrentStats() {
+    return currentStats;
+}
+
 function read(a) {
     var ifs = JSON.parse(a);
     var stats = StatsFromIFS(ifs);
@@ -59,6 +64,8 @@ function read(a) {
     document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = true; });
 
     currentStats = stats;
+
+    return stats;
 }
 
 function isCanvasSupported() {
