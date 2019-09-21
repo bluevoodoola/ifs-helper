@@ -54,6 +54,8 @@ function read(a) {
     document.getElementById("Trekker").innerText = stats.trekker.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("Recursions").innerText = stats.recursions;
 
+    document.getElementById("jsondata").innerText = JSON.stringify(stats);
+
     document.querySelectorAll('.watching-stats').forEach(el => { el.dataset.stats = true; });
 }
 
