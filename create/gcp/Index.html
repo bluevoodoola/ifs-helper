@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base target="_top">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ingress First Saturday Stats QR Scanner</title>
+    <link href="https://fonts.googleapis.com/css?family=Coda&display=swap" rel="stylesheet">
+    <!-- <script type="text/javascript" src="https://bluevoodoola.github.io/ifs-helper/scan/js/ingress/definitions.js"></script> -->
+    <!-- <script type="text/javascript" src="https://bluevoodoola.github.io/ifs-helper/scan/js/ingress/stats.js"></script> -->
+    <!-- <script type="text/javascript" src="https://bluevoodoola.github.io/ifs-helper/scan/js/llqrcode.js"></script> -->
+    <!-- <script type="text/javascript" src="https://bluevoodoola.github.io/ifs-helper/scan/js/webqr.js"></script> -->
+
+    <?!= include('ingress/definitions.js'); ?>
+    <?!= include('ingress/stats.js'); ?>
+    <?!= include('llqrcode.js'); ?>
+    <?!= include('webqr.js'); ?>
+
+    <script type="text/javascript">
+        function test() {
+            read('{"ag":"caderoux","f":"res","lap":"266013262","ap":"7575659","t":"8281","r":"1","l":11}');
+        }
+
+        function reset() {
+            document.querySelectorAll('.watching-stats').forEach(el => { delete el.dataset.stats; });
+        }
+        function closeIt() {
+          google.script.host.close();
+        }
+        
+        function submitAgentStats() {
+          var stats = getCurrentStats();
+          google.script.run.withSuccessHandler(reset).AddStats(stats);
+        }
+    </script>
+    
+    <?!= include('styles.css'); ?>
+</head>
+
+<body>
+    <div id="mainbody">
+        <table border="0" style="padding: 0px">
+            <tr>
+                <td valign="top" align="center" width="50%">
+                    <div id="outdiv" class="watching-stats stats-hide">
+                        <video id="v" autoplay></video>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <div id="result" class="watching-stats stats-hide"></div>
+                    <div id="stats" class="watching-stats stats-show">
+                        <table align="center" style="text-align: center">
+                            <tr>
+                                <td class="agentname caption">Agent Name</td>
+                                <td class="agentname data"><span id="AgentName"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="faction caption">Faction</td>
+                                <td class="faction data"><span id="Faction"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="level caption">Level</td>
+                                <td class="level data"><span id="Level"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="recursions caption">Recursions</td>
+                                <td class="recursions data"><span id="Recursions"></span></td>
+                            </tr>
+                            <tr>
+                                <td class="trekker caption">Trekker</td>
+                                <td class="trekker data"><span id="Trekker"></span></td>
+                                <td class="trekker label">km</td>
+                            </tr>
+                            <tr>
+                                <td class="ap caption" rowspan="2">AP</td>
+                                <td class="ap data"><span id="CurrentAP"></span></td>
+                                <td class="ap label">Current</td>
+                            </tr>
+                            <tr>
+                                <td class="ap data"><span id="LifetimeAP"></span></td>
+                                <td class="ap label">Lifetime</td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="text-align: center">
+                        <button id="test" onclick="test()"
+                        class="watching-stats stats-hide">Test</button>
+                        <button id="reset" onclick="reset()"
+                        class="watching-stats stats-show">Reset</button>
+                        <button id="reset" onclick="submitAgentStats()"
+                        class="watching-stats stats-show">Submit</button>
+                        <button id="reset" onclick="closeIt()"
+                        class="">Close</button>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="text-align: center">
+                    <textarea cols="40" rows="10" id="jsondata" class="watching-stats stats-show"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>&nbsp;
+    <canvas id="qr-canvas" width="800" height="600"></canvas>
+    <script type="text/javascript">load();</script>
+</body>
+
+</html>
